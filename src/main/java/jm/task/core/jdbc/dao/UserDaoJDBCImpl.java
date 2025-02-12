@@ -7,7 +7,7 @@ import java.util.List;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class UserDaoJDBCImpl implements UserDao {
+public class UserDaoJDBCImpl implements UserDao1 {
 
     private static final String CREATE_TABLE_SQL = "CREATE TABLE IF NOT EXISTS users (" +
             "id BIGINT AUTO_INCREMENT PRIMARY KEY," +
