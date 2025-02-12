@@ -13,7 +13,6 @@ public class Util {
 
     static {
         try {
-            // Загрузка драйвера MySQL
             Class.forName(DRIVER);
         } catch (ClassNotFoundException e) {
             System.err.println("MySQL JDBC Driver not found: " + e.getMessage());
