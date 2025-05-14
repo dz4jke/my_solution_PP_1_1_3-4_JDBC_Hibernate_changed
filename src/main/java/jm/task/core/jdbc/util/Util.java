@@ -1,15 +1,21 @@
 package jm.task.core.jdbc.util;
+
+import jm.task.core.jdbc.model.User;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
 import java.sql.DriverManager;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
 public class Util {
-    // реализуйте настройку соеденения с БД
+
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String URL = "jdbc:mysql://localhost:3306/kata_db";
     private static final String USER = "root";
     private static final String PASSWORD = "root";
+    private static final SessionFactory sessionFactory = buildSessionFactory();
 
     static {
         try {
@@ -29,4 +35,29 @@ public class Util {
         }
         return connection;
     }
+
+    private static SessionFactory buildSessionFactory() {
+        try {
+            // Создание конфигурации Hibernate для MySQL
+            return new Configuration()
+                    .setProperty("hibernate.connection.driver_class", "com.mysql.cj.jdbc.Driver")
+                    .setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/kata_db")
+                    .setProperty("hibernate.connection.username", "root")
+                    .setProperty("hibernate.connection.password", "root")
+                    .setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect")
+                    .setProperty("hibernate.show_sql", "true")
+                    .setProperty("hibernate.hbm2ddl.auto", "update")
+                    .addAnnotatedClass(User.class) // Указываем класс сущности
+                    .buildSessionFactory();
+        } catch (Throwable ex) {
+            System.err.println("Initial SessionFactory creation failed." + ex);
+            throw new ExceptionInInitializerError(ex);
+        }
+    }
+
+    public static SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+
+
 }
