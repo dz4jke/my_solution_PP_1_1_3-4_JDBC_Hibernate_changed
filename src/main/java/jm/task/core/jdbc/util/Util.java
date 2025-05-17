@@ -15,7 +15,7 @@ public class Util {
     private static final String URL = "jdbc:mysql://localhost:3306/kata_db";
     private static final String USER = "root";
     private static final String PASSWORD = "root";
-    private static final SessionFactory sessionFactory = buildSessionFactory();
+    private final SessionFactory sessionFactory = buildSessionFactory();
 
     static {
         try {
@@ -36,7 +36,7 @@ public class Util {
         return connection;
     }
 
-    private static SessionFactory buildSessionFactory() {
+    private SessionFactory buildSessionFactory() {
         try {
             // Создание конфигурации Hibernate для MySQL
             return new Configuration()
@@ -55,7 +55,7 @@ public class Util {
         }
     }
 
-    public static SessionFactory getSessionFactory() {
+    public SessionFactory getSessionFactory() {
         return sessionFactory;
     }
 
